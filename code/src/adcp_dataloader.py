@@ -19,10 +19,10 @@ dZ = 182
 local_datapath = 'data/path/to/dataset/files'
 
 
-class NIHGattrDataset(Dataset):
+class ADCPGattrDataset(Dataset):
     def __init__(self, datapath=local_datapath, ad_cn=False, gattr_name = 'age', debug=False,  split_filename=None,
                  return_ids=False, train=True):
-        super(NIHGattrDataset, self).__init__()
+        super(ADCPGattrDataset, self).__init__()
         assert(split_filename is not None)
 
         self.debug = debug
@@ -40,7 +40,7 @@ class NIHGattrDataset(Dataset):
         metadata = metadata[metadata['Subj_ID'].isin(split_ids)]
 
         # loads all image data into memory!!!
-        print('Loading all NIH images into RAM...', len(metadata))
+        print('Loading all ADCP images into RAM...', len(metadata))
 
         X = self.load_X_data(metadata["Subj_ID"].values).astype(np.float32)
         X_mean = np.mean(X)
@@ -138,10 +138,10 @@ def create_train_valid_splits():
         train_ids = ids[:split_point]
         val_ids = ids[split_point:]
         train_name = 'train_{}.data'.format(idx)
-        train_file = open(os.path.join('./data/nih_splits', train_name), 'wb')
+        train_file = open(os.path.join('./data/adcp_splits', train_name), 'wb')
         pickle.dump(train_ids, train_file)
         test_name = 'val_{}.data'.format(idx)
-        test_file = open(os.path.join('./data/nih_splits', test_name), 'wb')
+        test_file = open(os.path.join('./data/adcp_splits', test_name), 'wb')
         pickle.dump(val_ids, test_file)
         print(len(train_ids), len(val_ids))
 

@@ -5,12 +5,12 @@ export PYTHONPATH=$PYTHONPATH:.
 neps=150
 aneps=200
 prog_equivar () {
-exp='all_nih_harmonz_equivar'
+exp='all_adcp_harmonz_equivar'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \
@@ -38,12 +38,12 @@ do
 done
 }
 prog_none () {
-exp='all_nih_harmonz_none'
+exp='all_adcp_harmonz_none'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \
@@ -70,12 +70,12 @@ do
 done
 }
 prog_zemel () {
-exp='all_nih_harmonz_zemel'
+exp='all_adcp_harmonz_zemel'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \
@@ -102,12 +102,12 @@ do
 done
 }
 prog_cai () {
-exp='all_nih_harmonz_cai'
+exp='all_adcp_harmonz_cai'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \
@@ -134,12 +134,12 @@ do
 done
 }
 prog_subsam () {
-exp='all_nih_harmonz_subsam'
+exp='all_adcp_harmonz_subsam'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \
@@ -166,12 +166,12 @@ do
 done
 }
 prog_randmatch () {
-exp='all_nih_harmonz_randmatch'
+exp='all_adcp_harmonz_randmatch'
 for split in 0 1 2 3 4
 do
     python src/main.py \
            --experiment_name "$exp" \
-           --dataset_name 'NIH' \
+           --dataset_name 'ADCP' \
            --fold "$split" \
 	   --batch_size 32 \
            --num_epochs "$neps" \

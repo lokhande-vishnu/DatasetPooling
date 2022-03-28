@@ -231,7 +231,7 @@ def train_equivar(args, device, model_path,  logf, model, opt, trainloader, vall
         if args.dataset_name == 'German' or args.dataset_name == 'Adult':
             disc = models.Adv('Disc', input_dim=args.latent_dim, output_dim=2,
                               hidden_dim=args.adv_hidden_dim, hidden_layers=3).to(device)
-        elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+        elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
             disc = models.Adv('Disc', input_dim=args.latent_dim, output_dim=3,
                               hidden_dim=args.adv_hidden_dim, hidden_layers=3).to(device)
         else:
@@ -298,7 +298,7 @@ def run_equivariance(args, device, model_path, logf, trainset, valset, testset, 
             model = models.TauNetEncDec(input_dim=input_dim, latent_dim=args.latent_dim, feature_dim=0, const=0.1).to(device)
         else:
             model = models.BaselineEncDec(input_dim=input_dim, latent_dim=args.latent_dim, feature_dim=0).to(device)
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         if args.equiv_type == 'ell2':
             model = adni_models.TauResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5, const=0.01)
             model = model.to(device)

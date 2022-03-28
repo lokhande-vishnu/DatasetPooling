@@ -14,7 +14,7 @@ For evaluation, three flags are provided, one for each metric
 import argparse
 from src import dataloader as mydatasets
 from src import adni_dataloader as adni_datasets
-from src import nih_dataloader as nih_datasets
+from src import adcp_dataloader as adcp_datasets
 import os, sys, time, shutil
 import numpy as np
 import matplotlib.pyplot as plt
@@ -154,7 +154,7 @@ else:
 
 if args.dataset_name == 'Adult' or args.dataset_name == 'German':
     output_path = os.path.join(output_path, 'run_' + str(args.seed))
-elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
     output_path = os.path.join(output_path, 'fold_' + str(args.fold))
 else:
     raise NotImplementedError
@@ -184,8 +184,7 @@ if args.flag_train_equivar:
 '''
 Create the dataloaders for the individual datasets.
 Four datasets are used in the paper -- Adult, German,
-ADNI and NIH. The dataset NIH has been code-named 
-as NIH in the paper.
+ADNI and ADCP. 
 '''    
 #### Dataloaders
 if args.dataset_name == 'Adult':
@@ -206,9 +205,9 @@ elif args.dataset_name == 'ADNI':
     trainset = adni_datasets.ADNIGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/adni_splits/train_{:d}.data'.format(args.fold))
     valset = adni_datasets.ADNIGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/adni_splits/val_{:d}.data'.format(args.fold))
     testset = None
-elif args.dataset_name == 'NIH':
-    trainset = nih_datasets.NIHGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/nih_splits/train_{:d}.data'.format(args.fold))
-    valset = nih_datasets.NIHGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/nih_splits/val_{:d}.data'.format(args.fold))
+elif args.dataset_name == 'ADCP':
+    trainset = adcp_datasets.ADCPGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/adcp_splits/train_{:d}.data'.format(args.fold))
+    valset = adcp_datasets.ADCPGattrDataset(ad_cn=True, gattr_name='age', debug=args.flag_debug, split_filename='data/adcp_splits/val_{:d}.data'.format(args.fold))
     testset = None
 else:
     raise NotImplementedError

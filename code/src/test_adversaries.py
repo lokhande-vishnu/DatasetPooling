@@ -44,7 +44,7 @@ def train_adv_epoch(args, device, epoch, adv, opt, dataloader, writer, model_tau
     y_true = np.array([])
     if args.dataset_name == 'Adult' or args.dataset_name == 'German':
         y_score = np.array([])
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         y_score = np.array([[], [], []]).transpose()
     else:
         raise NotImplementedError
@@ -67,7 +67,7 @@ def train_adv_epoch(args, device, epoch, adv, opt, dataloader, writer, model_tau
         y_true = np.concatenate((y_true, c.cpu().numpy()))
         if args.dataset_name == 'Adult' or args.dataset_name == 'German':
             y_score = np.concatenate((y_score, get_prob(logits).detach().cpu().numpy()))
-        elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+        elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
             y_score_idx = torch.nn.Softmax(dim=1)(logits).detach().cpu().numpy()
             y_score = np.concatenate((y_score, y_score_idx))
         else:
@@ -93,7 +93,7 @@ def train_adv_epoch(args, device, epoch, adv, opt, dataloader, writer, model_tau
 
     if args.dataset_name == 'Adult' or args.dataset_name == 'German':
         roc_auc = roc_auc_score(y_true, y_score)
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         roc_auc = roc_auc_score(y_true, y_score, multi_class='ovr')
     else:
         raise NotImplementedError
@@ -137,7 +137,7 @@ def train_adversaries(args, device, model_path, logf, trainset, valset, testset,
     input_dim = args.latent_dim
     if args.dataset_name == 'Adult' or args.dataset_name == 'German':
         output_dim = 2
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         output_dim = 3
     else:
         raise NotImplementedError
@@ -148,7 +148,7 @@ def train_adversaries(args, device, model_path, logf, trainset, valset, testset,
         trainloader = torch.utils.data.DataLoader(trainset, batch_size=args.adv_batch_size, shuffle=True, drop_last=True)
         valloader = torch.utils.data.DataLoader(valset, batch_size=args.adv_batch_size, shuffle=False, drop_last=True)
         testloader = torch.utils.data.DataLoader(testset, batch_size=args.adv_batch_size, shuffle=False, drop_last=True)
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         trainloader = torch.utils.data.DataLoader(trainset, batch_size=args.adv_batch_size, shuffle=True)
         valloader = torch.utils.data.DataLoader(valset, batch_size=args.adv_batch_size, shuffle=False)
         testloader = None
@@ -206,7 +206,7 @@ def run_adversaries(args, device, model_path, logf, trainset, valset, testset, w
 
             train_adversaries(args, device, model_path, logf, trainset, valset, testset, writer, model_taunet, model_bnet)
             
-        elif args.dataset_name == 'ADNI' or args.dataset_name ==  'NIH':
+        elif args.dataset_name == 'ADNI' or args.dataset_name ==  'ADCP':
             # Loading the equivar model            
             model_taunet = adni_models.TauResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5, const=0.01)
             model_taunet = model_taunet.to(device)
@@ -253,7 +253,7 @@ def run_adversaries(args, device, model_path, logf, trainset, valset, testset, w
             model_bnet = None
             train_adversaries(args, device, model_path, logf, trainset, valset, testset, writer, model_taunet, model_bnet)
             
-        elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+        elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
             model_taunet = adni_models.ResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5)
             model_taunet = model_taunet.to(device)
             #model_taunet = torch.nn.DataParallel(model_taunet).to(device)

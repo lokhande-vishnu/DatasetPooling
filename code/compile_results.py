@@ -3,7 +3,7 @@ Simple script to compile all the results from the log files, once training
 and evaluation are complete.
 
 The mean and standard deviation over three random runs for Adult, German
-dataset and over five random splits for ADNI, NIH datasets are computed
+dataset and over five random splits for ADNI, ADCP datasets are computed
 '''
 import numpy as np
 import argparse
@@ -29,9 +29,9 @@ def main():
     elif args.dataset_name == 'ADNI':
         subdirs = ['fold_0', 'fold_1', 'fold_2', 'fold_3', 'fold_4']
         maindirs = ['all_adni_fairness_none', 'all_adni_fairness_zemel', 'all_adni_fairness_cai', 'all_adni_fairness_equivar', 'all_adni_fairness_subsam', 'all_adni_fairness_randmatch']
-    elif args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADCP':
         subdirs = ['fold_0', 'fold_1', 'fold_2', 'fold_3', 'fold_4']
-        maindirs = ['all_nih_harmonz_none', 'all_nih_harmonz_zemel', 'all_nih_harmonz_cai', 'all_nih_harmonz_equivar','all_nih_harmonz_subsam', 'all_nih_harmonz_randmatch']
+        maindirs = ['all_adcp_harmonz_none', 'all_adcp_harmonz_zemel', 'all_adcp_harmonz_cai', 'all_adcp_harmonz_equivar','all_adcp_harmonz_subsam', 'all_adcp_harmonz_randmatch']
     else:
         raise NotImplementedError
         

@@ -117,7 +117,7 @@ def run_mmd_measure(args, device, testset, equivar_model_name, invar_model_name,
             X, Y, C, G = get_data(args, device, model_taunet, model_bnet, dataloader)
         compute_mmd_loss(args, device, X, C, logf)    
         
-    elif args.equiv_type == 'ell2' and  (args.dataset_name == 'ADNI' or args.dataset_name == 'NIH'):
+    elif args.equiv_type == 'ell2' and  (args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP'):
         # Loading the equivar model            
         model_taunet = adni_models.TauResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5, const=0.01)
         model_taunet = model_taunet.to(device)
@@ -164,7 +164,7 @@ def run_mmd_measure(args, device, testset, equivar_model_name, invar_model_name,
             X, Y, C, G = get_data(args, device, model_taunet, model_bnet, dataloader)
         compute_mmd_loss(args, device, X, C, logf)    
             
-    elif args.equiv_type != 'ell2' and (args.dataset_name == 'ADNI' or args.dataset_name == 'NIH'):
+    elif args.equiv_type != 'ell2' and (args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP'):
         model_taunet = adni_models.ResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5)
         model_taunet = model_taunet.to(device)
         path = os.path.join(model_path, equivar_model_name + '.pth')

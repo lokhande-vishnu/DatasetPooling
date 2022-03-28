@@ -105,7 +105,7 @@ def run_tsne_plots(args, device, testset, model_name, output_path, logf):
             model = models.TauNetEncDec(input_dim=input_dim, latent_dim=args.latent_dim, feature_dim=0, const=0.1).to(device)        
         else:
             model = models.BaselineEncDec(input_dim=input_dim, latent_dim=args.latent_dim, feature_dim=0).to(device)
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         if args.equiv_type == 'ell2':
             model = adni_models.TauResNet(in_depth=1, n_blocks=args.blocks, interm_depths=args.channels, bottleneck=args.use_bottleneck_layers, n_out_linear=2, dropout=0.5, const=0.01)
             model = model.to(device)
@@ -133,7 +133,7 @@ def run_tsne_plots(args, device, testset, model_name, output_path, logf):
         np.random.seed(args.seed)
         Xs, Ys, Cs, Gs = get_samples(X, Y, C, Gdz)
         compute_equivar_measure_gap(Xs, Ys, Cs, Gs, flag_latent, logf)
-    elif args.dataset_name == 'ADNI' or args.dataset_name == 'NIH':
+    elif args.dataset_name == 'ADNI' or args.dataset_name == 'ADCP':
         flag_latent = False
         X, Y, C, G = get_data(args, device, model, dataloader, flag_latent)
         Gdz = (G*10).astype(int) # Discretizing G
