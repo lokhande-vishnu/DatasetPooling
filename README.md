@@ -5,3 +5,7 @@ Pooling multiple neuroimaging datasets across institutions often enables signifi
 
 ## Code
 Available in the directory `code/`.
+
+
+## Updates
+Watch out for updates at https://github.com/lokhande-vishnu/DatasetPooling.git 
